@@ -1,0 +1,1 @@
+The big wardrobe that consists from three independent parts.
