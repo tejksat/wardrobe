@@ -32,14 +32,14 @@ def build(builder: WardrobeBuilder):
                       height=bottom.BOTTOM_BOARD_THICKNESS,
                       depth=bottom.BOTTOM_DEPTH)
 
-    # put right side on the bottom
+    # build section divider board on the bottom
     builder.add_board(
-        x=left_part_constants.LEFT_SIDE_THICKNESS + left_part_constants.BOTTOM_WIDTH - left_part_constants.RIGHT_SIDE_THICKNESS,
+        x=left_part_constants.LEFT_SIDE_THICKNESS + left_part_constants.LEFT_COMPARTMENT_WIDTH,
         y=plinth.PLINTH_HEIGHT + bottom.BOTTOM_BOARD_THICKNESS,
         z=0,
         width=left_part_constants.RIGHT_SIDE_THICKNESS,
         height=left_part_constants.RIGHT_SIDE_HEIGHT,
-        depth=left_part_constants.RIGHT_SIDE_DEPTH)
+        depth=left_part_constants.LEFT_COMPARTMENT_DEPTH)
 
     # build top
     builder.add_board(x=0,

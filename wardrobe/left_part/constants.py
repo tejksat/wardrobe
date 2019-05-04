@@ -1,9 +1,9 @@
 import corner_measures
 from common import mdf
-from wardrobe import top, plinth, bottom
+from wardrobe import top, plinth, bottom, fitting_constants
 
 # this side is slightly bigger that left plasterboard side
-WIDTH = 0.5
+WIDTH = corner_measures.LEFT_WALL
 """
 Overall width of left wardrobe part
 """
@@ -29,3 +29,6 @@ RIGHT_SIDE_THICKNESS = mdf.STANDARD
 BOTTOM_WIDTH = WIDTH - LEFT_SIDE_THICKNESS
 
 TOP_BOARD_WIDTH = WIDTH
+
+LEFT_COMPARTMENT_WIDTH = 0.3
+LEFT_COMPARTMENT_DEPTH = LEFT_SIDE_DEPTH - fitting_constants.RAILS_DEPTH

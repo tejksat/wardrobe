@@ -1,8 +1,9 @@
 import corner_measures
 from common import mdf
 from wardrobe import top, plinth, bottom
+from ..left_part import constants as left_part_constants
 
-WIDTH = 1.3
+WIDTH = corner_measures.RIGHT_WALL - left_part_constants.LEFT_SIDE_DEPTH
 
 RIGHT_SIDE_DEPTH = 0.6
 RIGHT_SIDE_THICKNESS = mdf.THICK
@@ -19,6 +20,7 @@ RAILS_DEPTH = 0.04
 LEFT_SIDE_DEPTH = RIGHT_SIDE_DEPTH - RAILS_DEPTH
 
 LEFT_SECTION_WIDTH = 0.5
+MIDDLE_SECTION_WIDTH = 0.5
 RIGHT_SECTION_WIDTH = 0.3
 
 SECTION_THICKNESS = mdf.STANDARD
