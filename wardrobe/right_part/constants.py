@@ -22,5 +22,9 @@ LEFT_SIDE_DEPTH = RIGHT_SIDE_DEPTH - RAILS_DEPTH
 LEFT_SECTION_WIDTH = 0.5
 MIDDLE_SECTION_WIDTH = 0.5
 RIGHT_SECTION_WIDTH = 0.3
+OPEN_SECTION_WIDTH = corner_measures.RIGHT_WALL - left_part_constants.LEFT_COMPARTMENT_DEPTH
+"""
+Width of the leftmost section (that is connected with left wardrobe part).
+"""
 
 SECTION_THICKNESS = mdf.STANDARD

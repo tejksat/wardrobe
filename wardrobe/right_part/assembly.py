@@ -3,8 +3,10 @@ from builder import volumes, primitives
 from builder.boards import Board
 from builder.shelves import build_shelf
 from builder.wardrobe_builder import WardrobeBuilder
+from common import mdf
 from wardrobe import plinth, bottom, top
-from wardrobe.right_part.constants import LEFT_SIDE_DEPTH, LEFT_SECTION_WIDTH
+from wardrobe.right_part.constants import LEFT_SIDE_DEPTH, LEFT_SECTION_WIDTH, OPEN_SECTION_WIDTH
+from wardrobe.top_shelf import TOP_SHELF_THICKNESS, TOP_SHELF_HEIGHT_FROM_FLOOR
 from .constants import (
     WIDTH,
     RIGHT_SIDE_DEPTH,
@@ -28,7 +30,15 @@ def build(builder: WardrobeBuilder):
     builder.use_ZYiX()
 
     # build right side
-    builder.add_board(x=0, y=0, z=0, width=RIGHT_SIDE_THICKNESS, height=RIGHT_SIDE_HEIGHT, depth=RIGHT_SIDE_DEPTH)
+    right_side_box = primitives.create_box(
+        x=0,
+        y=0,
+        z=0,
+        width=RIGHT_SIDE_THICKNESS,
+        height=RIGHT_SIDE_HEIGHT,
+        depth=RIGHT_SIDE_DEPTH
+    )
+    builder.add_board_object(Board(right_side_box))
 
     # build bottom
     bottom_box = primitives.create_box(
@@ -98,13 +108,35 @@ def build(builder: WardrobeBuilder):
         volume = volumes.between(left_section_box, middle_section_box, bottom_box, SHELF_HEIGHT, i * SHELF_HEIGHT)
         build_shelf(builder, volume)
 
+    volume = volumes.between(left_section_box, middle_section_box, bottom_box, mdf.STANDARD, 4 * SHELF_HEIGHT)
+    builder.add_board_object(Board(volume))
+
     # build shelves for right section
     for i in range(2):
         volume = volumes.between(middle_section_box, right_section_box, bottom_box, BIG_SHELF_HEIGHT,
                                  i * BIG_SHELF_HEIGHT)
         build_shelf(builder, volume)
 
+    volume = volumes.between(middle_section_box, right_section_box, bottom_box, mdf.STANDARD, 4 * SHELF_HEIGHT)
+    builder.add_board_object(Board(volume))
+
     # build shelves for the compartment
     for i in range(4):
         volume = volumes.between(shelves_compartment_box, left_section_box, bottom_box, SHELF_HEIGHT, i * SHELF_HEIGHT)
         build_shelf(builder, volume)
+
+    # build top shelves
+    volume = volumes.between_two(left_section_box, middle_section_box, TOP_SHELF_THICKNESS,
+                                 TOP_SHELF_HEIGHT_FROM_FLOOR)
+    builder.add_board_object(Board(volume))
+
+    volume = volumes.between_two(middle_section_box, right_section_box, TOP_SHELF_THICKNESS,
+                                 TOP_SHELF_HEIGHT_FROM_FLOOR)
+    builder.add_board_object(Board(volume))
+
+    volume = volumes.between_two(right_section_box, right_side_box, TOP_SHELF_THICKNESS,
+                                 TOP_SHELF_HEIGHT_FROM_FLOOR)
+    builder.add_board_object(Board(volume))
+
+    volume = volumes.right_from(left_section_box, OPEN_SECTION_WIDTH, TOP_SHELF_THICKNESS, TOP_SHELF_HEIGHT_FROM_FLOOR)
+    builder.add_board_object(Board(volume))

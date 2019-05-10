@@ -5,7 +5,6 @@ from typing import TextIO
 
 from builder.pov_builder import PovBuilder
 from pov_ray import room
-from wardrobe.corner_part import assembly as corner_part_assembly
 from wardrobe.left_part import assembly as left_part_assembly
 from wardrobe.right_part import assembly as right_part_assembly
 
@@ -82,7 +81,6 @@ if __name__ == '__main__':
 
         left_part_assembly.build(builder)
         right_part_assembly.build(builder)
-        # corner_part_assembly.build(builder)
 
     subprocess.run(['povray', f'+A', f'+O{pathname_base}.png', f'{pathname_base}.pov'])
 
