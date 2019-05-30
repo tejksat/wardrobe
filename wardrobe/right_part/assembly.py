@@ -1,6 +1,8 @@
 import corner_measures
+import wardrobe.left_part.constants as left_part_constants
 from builder import volumes, primitives
 from builder.boards import Board
+from builder.primitives import Box, Point
 from builder.shelves import build_shelf
 from builder.wardrobe_builder import WardrobeBuilder
 from common import mdf
@@ -140,3 +142,18 @@ def build(builder: WardrobeBuilder):
 
     volume = volumes.right_from(left_section_box, OPEN_SECTION_WIDTH, TOP_SHELF_THICKNESS, TOP_SHELF_HEIGHT_FROM_FLOOR)
     builder.add_board_object(Board(volume))
+
+    # add plinth
+    plinth_box = Box(
+        Point(
+            RIGHT_SIDE_THICKNESS,
+            0,
+            RIGHT_SIDE_DEPTH - (plinth.PLINTH_OFFSET - plinth.PLINTH_THICKNESS)
+        ),
+        Point(
+            corner_measures.RIGHT_WALL - (left_part_constants.LEFT_SIDE_DEPTH - plinth.PLINTH_OFFSET),
+            plinth.PLINTH_HEIGHT,
+            RIGHT_SIDE_DEPTH - plinth.PLINTH_OFFSET
+        )
+    )
+    builder.add_board_object(Board(plinth_box))

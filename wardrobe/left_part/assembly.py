@@ -1,8 +1,10 @@
 import corner_measures
 # TODO fix this strange import
 import wardrobe.left_part.constants as left_part_constants
+import wardrobe.right_part.constants as right_part_constants
 from builder import volumes, primitives
 from builder.boards import Board
+from builder.primitives import Box, Point
 from builder.wardrobe_builder import WardrobeBuilder
 from wardrobe import plinth, bottom, top
 from wardrobe.top_shelf import TOP_SHELF_THICKNESS, TOP_SHELF_HEIGHT_FROM_FLOOR
@@ -74,3 +76,18 @@ def build(builder: WardrobeBuilder):
 
     volume = volumes.between_two(section_divider_box, right_side_box, TOP_SHELF_THICKNESS, TOP_SHELF_HEIGHT_FROM_FLOOR)
     builder.add_board_object(Board(volume))
+
+    # add plinth
+    plinth_box = Box(
+        Point(
+            left_part_constants.LEFT_SIDE_THICKNESS,
+            0,
+            left_part_constants.LEFT_SIDE_DEPTH - (plinth.PLINTH_OFFSET - plinth.PLINTH_THICKNESS)
+        ),
+        Point(
+            corner_measures.LEFT_WALL - (right_part_constants.RIGHT_SIDE_DEPTH - plinth.PLINTH_OFFSET),
+            plinth.PLINTH_HEIGHT,
+            left_part_constants.LEFT_SIDE_DEPTH - plinth.PLINTH_OFFSET
+        )
+    )
+    builder.add_board_object(Board(plinth_box))
